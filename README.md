@@ -11,10 +11,12 @@
 ```bash
 docker-compose up -d
 source ./.env
-export DATABASE_URL=postgres://${PG_USER}:${PG_PASSWORD}@0.0.0.0:5432/${PG_NAME}?sslmode=disable
 
-dbmate new init
-dbmate up
+dbmate -d "schema/posgre/migrations" new init
+dbmate -d "schema/mysql/migrations" new init
+
+DATABASE_URL="postgres://${PG_USER}:${PG_PASSWORD}@0.0.0.0:5432/${PG_NAME}?sslmode=disable" dbmate -d "schema/posgre/migrations" up
+DATABASE_URL="mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@0.0.0.0:3306/${MYSQL_NAME}" dbmate -d "schema/mysql/migrations" up
 ```
 
 #### Demo anonymizer
