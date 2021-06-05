@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  postgre:
+    image: osuketh/anonify-pg:latest
+    ports:
+      - 5432:5432
+    networks:
+      - backend
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      - PG_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - PG_NAME=${PG_NAME}
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_preload_libraries='anon'"
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - .docker/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - TZ=Asia/Tokyo
+    restart: always
+
+networks:
+  backend:
+
+volumes:
+  pg-data:
+    driver: local
+  mysql-data:
+    driver: local
