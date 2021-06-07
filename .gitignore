@@ -11,3 +11,8 @@ Cargo.lock
 
 .env
 schema.sql
+
+
+# Added by cargo
+
+/target

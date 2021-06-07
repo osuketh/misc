@@ -1,0 +1,18 @@
+[package]
+name = "pm1"
+version = "0.1.0"
+authors = ["osuketh <dish230@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix-web = "4.0.0-beta.5"
+actix-service = "=2.0.0-beta.5"
+
+sqlx = { version = "0.5.1", default-features = false, features = ["runtime-actix-rustls", "macros", "postgres", "uuid", "chrono", "migrate"] }
+config = { version = "0.11.0", default-features = false, features = ["yaml"] }
+dotenv = "0.15.0"
+listenfd = "0.3.3"
+anyhow = "1.0.40"
+log = "0.4.14"
+serde = { version = "1.0.126", features = ["derive"] }
+thiserror = "1.0.25"
