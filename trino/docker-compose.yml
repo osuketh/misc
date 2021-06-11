@@ -20,12 +20,13 @@ services:
     image: mysql:5.7
     hostname: mysql
     container_name: mysql
+    ports:
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=password
-    # volumes:
-    #   - ./config/mysql/conf.d:/etc/mysql/conf.d
-    #   - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    #   - ./config/mysql/seed:/seed
+      - TZ=Asia/Tokyo
+    volumes:
+      - .docker/my.cnf:/etc/mysql/conf.d/my.cnf
     networks:
       - trino-network
 
