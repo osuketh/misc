@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  presto:
+    image: trinodb/trino:latest
+    ports:
+      - 8080:8080
+    # volumes:
+    #   - ./config/presto:/etc/presto
+    # depends_on:
+    #   - mysql
+#   mysql:
+#     image: mysql:5.7
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password
+#     volumes:
+#       - ./config/mysql/conf.d:/etc/mysql/conf.d
+#       - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+#       - ./config/mysql/seed:/seed
