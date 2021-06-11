@@ -1,18 +1,33 @@
 version: "3.7"
 services:
-  presto:
+  trino:
     image: trinodb/trino:latest
+    hostname: trino
+    container_name: trino
     ports:
       - 8080:8080
+    volumes:
+      - ./config/catalog:/usr/lib/trino/etc/catalog
+      - ./config/config.properties:/usr/lib/trino/etc/config.properties
+      - ./config/jvm.config:/usr/lib/trino/etc/jvm.config
+      - ./config/node.properties:/usr/lib/trino/etc/node.properties
+    networks:
+      - trino-network
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    hostname: mysql
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
     # volumes:
-    #   - ./config/presto:/etc/presto
-    # depends_on:
-    #   - mysql
-#   mysql:
-#     image: mysql:5.7
-#     environment:
-#       MYSQL_ROOT_PASSWORD: password
-#     volumes:
-#       - ./config/mysql/conf.d:/etc/mysql/conf.d
-#       - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-#       - ./config/mysql/seed:/seed
+    #   - ./config/mysql/conf.d:/etc/mysql/conf.d
+    #   - ./config/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    #   - ./config/mysql/seed:/seed
+    networks:
+      - trino-network
+
+networks:
+  trino-network:
