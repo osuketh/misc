@@ -16,3 +16,4 @@ schema.sql
 # Added by cargo
 
 /target
+mysql-data

@@ -7,12 +7,13 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./config/catalog:/usr/lib/trino/etc/catalog
-      - ./config/config.properties:/usr/lib/trino/etc/config.properties
-      - ./config/jvm.config:/usr/lib/trino/etc/jvm.config
-      - ./config/node.properties:/usr/lib/trino/etc/node.properties
+      - ./config/catalog/mysql.properties:/etc/trino/catalog/mysql.properties
+      - ./config/config.properties:/etc/trino/config.properties
+      - ./config/jvm.config:/etc/trino/jvm.config
+      - ./config/node.properties:/etc/trino/node.properties
     networks:
-      - trino-network
+      trino-network:
+        ipv4_address: "172.16.0.2"
     depends_on:
       - mysql
 
@@ -23,12 +24,21 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - TZ=Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      TZ: Asia/Tokyo
     volumes:
       - .docker/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql-data:/var/lib/mysql
     networks:
-      - trino-network
+      trino-network:
+        ipv4_address: "172.16.0.3"
 
 networks:
   trino-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.0.0/24"
