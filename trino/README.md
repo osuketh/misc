@@ -1,4 +1,11 @@
 
+# セットアップ
+
+```bash
+brew install maven
+mvn archetype:generate -DgroupId=trino-test -DartifactId=trino-test
+```
+
 ## 参考
 
 Presto設定
