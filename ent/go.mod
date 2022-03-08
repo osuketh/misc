@@ -7,7 +7,7 @@ require entgo.io/ent v0.10.1
 require (
 	ariga.io/atlas v0.3.7-0.20220303204946-787354f533c3 // indirect
 	entgo.io/contrib v0.2.0
-	github.com/99designs/gqlgen v0.14.0 // indirect
+	github.com/99designs/gqlgen v0.14.0
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/agnivade/levenshtein v1.1.0 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
@@ -18,7 +18,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.10.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
-	github.com/vektah/gqlparser/v2 v2.2.0 // indirect
+	github.com/vektah/gqlparser/v2 v2.2.0
 	github.com/zclconf/go-cty v1.8.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
