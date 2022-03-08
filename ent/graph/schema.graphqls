@@ -1,28 +1,93 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Todo {
+interface Node {
   id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
 }
 
-type User {
+scalar Time
+scalar Cursor
+
+enum Status {
+  IN_PROGRESS
+  COMPLETED
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
+}
+
+type TodoConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TodoEdge]
+}
+
+type TodoEdge {
+  node: Todo
+  cursor: Cursor!
+}
+
+enum TodoOrderField {
+  CREATED_AT
+  PRIORITY
+  STATUS
+  TEXT
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+input TodoOrder {
+  direction: OrderDirection!
+  field: TodoOrderField
+}
+
+type Todo implements Node {
   id: ID!
-  name: String!
+  createdAt: Time
+  status: Status!
+  priority: Int!
+  text: String!
+  parent: Todo
+  children: [Todo!]
+}
+
+input CreateTodoInput {
+  status: Status! = IN_PROGRESS
+  priority: Int
+  text: String
+  parentID: ID
+  ChildIDs: [ID!]
+}
+
+input UpdateTodoInput {
+  status: Status
+  priority: Int
+  text: String
+  parentID: ID
+  clearParent: Boolean
+  addChildIDs: [ID!]
+  removeChildIDs: [ID!]
 }
 
 type Query {
-  todos: [Todo!]!
-}
-
-input NewTodo {
-  text: String!
-  userId: String!
+  todos(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+    orderBy: TodoOrder
+    where: TodoWhereInput
+  ): TodoConnection
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createTodo(input: CreateTodoInput!): Todo!
+  updateTodo(id: ID!, input: UpdateTodoInput!): Todo!
+  updateTodos(ids: [ID!]!, input: UpdateTodoInput!): [Todo!]!
 }
