@@ -4,8 +4,8 @@ package ent
 
 import (
 	"context"
-	"ent/ent/predicate"
-	"ent/ent/todo"
+	"ent-test/ent/predicate"
+	"ent-test/ent/todo"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"

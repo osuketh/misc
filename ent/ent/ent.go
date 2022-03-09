@@ -3,7 +3,7 @@
 package ent
 
 import (
-	"ent/ent/todo"
+	"ent-test/ent/todo"
 	"errors"
 	"fmt"
 
