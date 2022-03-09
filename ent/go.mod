@@ -6,7 +6,6 @@ require (
 	entgo.io/ent v0.10.1
 	github.com/alecthomas/kong v0.2.11
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/vmihailenco/msgpack/v5 v5.0.0-beta.9
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
@@ -14,6 +13,7 @@ require (
 require (
 	entgo.io/contrib v0.2.0
 	github.com/99designs/gqlgen v0.17.1
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/vektah/gqlparser/v2 v2.4.0
 )
 

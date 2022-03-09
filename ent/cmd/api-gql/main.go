@@ -15,7 +15,8 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/alecthomas/kong"
 
-	_ "github.com/mattn/go-sqlite3"
+	// _ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 		Debug bool   `name:"debug" help:"Enable debugging mode."`
 	}
 	kong.Parse(&cli)
-	client, err := ent.Open(dialect.SQLite, "file:ent?mode=memory&cache=shared&_fk=1")
+	client, err := ent.Open(dialect.MySQL, "root:password@tcp(localhost:3306)/misc")
 	if err != nil {
 		log.Fatal("failed to open the database:", err)
 	}
