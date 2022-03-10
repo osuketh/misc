@@ -1,8 +1,9 @@
+-- migrate:up
 CREATE TABLE `todos` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `text` longtext NOT NULL,
     `created_at` timestamp NULL,
-    `status` enum('IN_PROGRESS', 'COMPLETED') NOT NULL DEFAULT '"IN_PROGRESS"',
+    `status` enum('IN_PROGRESS', 'COMPLETED') NOT NULL DEFAULT 'IN_PROGRESS',
     `priority` bigint NOT NULL DEFAULT 0,
     `todo_parent` bigint NULL,
     PRIMARY KEY (`id`),
@@ -11,8 +12,7 @@ CREATE TABLE `todos` (
         NULL
 ) CHARSET utf8mb4 COLLATE utf8mb4_bin;
 
-CREATE TABLE 'users'
-(
+CREATE TABLE `users` (
     `id` varchar(36) COLLATE utf8mb4_bin NOT NULL COMMENT 'ID',
     `name` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '名前',
     `email` varchar(255) COLLATE utf8mb4_bin NOT NULL,
@@ -24,15 +24,17 @@ CREATE TABLE 'users'
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_email` (`email`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_bin COMMENT = 'ユーザー';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = 'ユーザー';
 
-CREATE TABLE `groups`
-(
+CREATE TABLE `groups` (
     `id` varchar(36) COLLATE utf8mb4_bin NOT NULL COMMENT 'ID',
     `user_id` varchar(36) COLLATE utf8mb4_bin NOT NULL COMMENT 'ユーザーID',
-    `name` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '名前'
+    `name` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '名前',
     PRIMARY KEY (`id`),
     CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = 'グループ';
+
+-- migrate:down
+DROP TABLE `todos`;
+DROP TABLE `users`;
+DROP TABLE `groups`;
