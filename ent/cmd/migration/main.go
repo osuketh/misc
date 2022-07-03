@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"ariga.io/atlas/sql/migrate"
+	"ariga.io/atlas/sql/sqltool"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/schema"
@@ -34,7 +35,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	m, err := schema.NewMigrate(dict, schema.WithDir(d))
+	m, err := schema.NewMigrate(dict, schema.WithDir(d), schema.WithFormatter(sqltool.GolangMigrateFormatter))
 	if err != nil {
 		log.Fatalln(err)
 	}
